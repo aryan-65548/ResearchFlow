@@ -2,7 +2,7 @@
 
 **Translate, understand, and discover research papers — locally.**
 
-Lexara is a fully local, privacy-first research assistant built with RAG (Retrieval Augmented Generation). Upload any research paper, ask questions about it, translate sections into 15 languages, and discover related papers from arXiv — all running on your machine with no API costs.
+ResearchFlow is a fully local, privacy-first research assistant built with RAG (Retrieval Augmented Generation). Upload any research paper, ask questions about it, translate sections into 15 languages, and discover related papers from arXiv — all running on your machine with no API costs.
 
 ---
 
@@ -43,8 +43,8 @@ Lexara is a fully local, privacy-first research assistant built with RAG (Retrie
 
 ```bash
 # Clone the repo
-git clone https://github.com/yourusername/lexara.git
-cd lexara
+git clone https://github.com/yourusername/researchflow.git
+cd researchflow
 
 # Create virtual environment
 python -m venv venv
