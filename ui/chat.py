@@ -49,18 +49,18 @@ def render_chat_page(settings: dict):
     """
     Renders the full chat interface.
     """
-    st.header("💬 Ask Questions About The Paper")
+    st.header("Ask Questions About The Paper")
 
     # Guard: check if any paper has been processed
     if "processed_papers" not in st.session_state or not st.session_state.processed_papers:
-        st.warning("⚠️ No paper loaded yet. Please upload a paper first in the Upload tab.")
+        st.warning(" No paper loaded yet. Please upload a paper first in the Upload tab.")
         return
 
     # Show which papers are loaded
-    with st.expander(f"📚 {len(st.session_state.processed_papers)} paper(s) loaded"):
+    with st.expander(f" {len(st.session_state.processed_papers)} paper(s) loaded"):
         for paper in st.session_state.processed_papers:
             meta = st.session_state.get("papers_metadata", {}).get(paper, {})
-            st.write(f"✅ **{paper}** — {meta.get('pages', '?')} pages, {meta.get('chunks', '?')} chunks")
+            st.write(f" **{paper}** — {meta.get('pages', '?')} pages, {meta.get('chunks', '?')} chunks")
 
     st.divider()
 
@@ -112,9 +112,9 @@ def render_chat_page(settings: dict):
 
                     # Show relevance score
                     if relevance >= 0.25:
-                        st.caption(f"📊 Relevance score: {relevance}")
+                        st.caption(f" Relevance score: {relevance}")
                     else:
-                        st.caption("⚠️ Low relevance — the paper may not cover this topic")
+                        st.caption("Low relevance — the paper may not cover this topic")
 
                     # Show retrieved context in expander
                     if context:
@@ -136,12 +136,12 @@ def render_chat_page(settings: dict):
                     st.error(error_msg)
                     st.session_state.chat_history.append({
                         "role": "assistant",
-                        "content": f"❌ {error_msg}"
+                        "content": f"{error_msg}"
                     })
 
     # Clear chat button
     if st.session_state.chat_history:
         st.divider()
-        if st.button("🗑️ Clear Chat History", use_container_width=True):
+        if st.button(" Clear Chat History", use_container_width=True):
             st.session_state.chat_history = []
             st.rerun()
