@@ -2,7 +2,7 @@ import streamlit as st
 
 def render_sidebar():
     with st.sidebar:
-        st.title("⚙️ Settings")
+        st.title(" Settings")
         st.divider()
 
         # Model selection
@@ -14,7 +14,7 @@ def render_sidebar():
         )
 
         # Language selection
-        st.subheader("🌐 Translation Language")
+        st.subheader(" Translation Language")
         language = st.selectbox(
             "Target Language",
             options=[
