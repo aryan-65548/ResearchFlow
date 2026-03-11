@@ -40,7 +40,7 @@ def get_pipeline(settings: dict):
 
 
 def render_translate_page(settings: dict):
-    st.header("🌐 Translate Research Paper Text")
+    st.header(" Translate Research Paper Text")
 
     if "processed_papers" not in st.session_state or not st.session_state.processed_papers:
         st.warning(" No paper loaded yet. Please upload a paper first in the Upload tab.")
@@ -65,7 +65,7 @@ def render_translate_page(settings: dict):
     with col2:
         st.write("**Options**")
         language = settings["language"]
-        st.info(f"🌐 Target:\n**{language}**")
+        st.info(f" Target:\n**{language}**")
         st.caption("Change language in sidebar ⚙️")
 
         use_context = st.toggle(
@@ -98,7 +98,7 @@ def render_translate_page(settings: dict):
         )
 
     with col_clear:
-        clear_btn = st.button("🗑️ Clear", use_container_width=True)
+        clear_btn = st.button("Clear", use_container_width=True)
 
     if clear_btn:
         st.rerun()
