@@ -26,14 +26,14 @@ def render_upload_page(settings: dict):
 
         st.divider()
 
-        if st.button("🚀 Process Paper", type="primary", use_container_width=True):
+        if st.button(" Process Paper", type="primary", use_container_width=True):
             if uploaded_file.name in st.session_state.get("processed_papers", []):
                 st.warning(f" '{uploaded_file.name}' is already processed! Upload a different paper or clear the database.")
             else:
                 _process_pdf(uploaded_file, settings)
 
     else:
-        st.info("👆 Upload a PDF above to get started")
+        st.info(" Upload a PDF above to get started")
 
         with st.expander(" How it works"):
             st.write("""
@@ -170,7 +170,7 @@ def _process_pdf(uploaded_file, settings: dict):
         loader.close()
         os.unlink(tmp_path)
 
-        st.success("🎉 Paper processed successfully! Go to the Chat or Translate tab.")
+        st.success(" Paper processed successfully! Go to the Chat or Translate tab.")
 
         col1, col2, col3 = st.columns(3)
         col1.metric("Pages", metadata["page_count"])
