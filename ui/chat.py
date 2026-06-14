@@ -132,7 +132,7 @@ def render_chat_page(settings: dict):
                     })
 
                 except Exception as e:
-                    error_msg = f"Error: {str(e)}\n\nMake sure Ollama is running: `ollama serve`"
+                    error_msg = f"Error: {str(e)}\n\nCheck your GROQ_API_KEY in the .env file and your internet connection."
                     st.error(error_msg)
                     st.session_state.chat_history.append({
                         "role": "assistant",
