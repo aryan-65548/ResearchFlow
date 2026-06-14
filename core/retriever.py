@@ -55,7 +55,7 @@ class Retriever:
         Same as retrieve() but formats results into a single
         string that can be directly injected into an LLM prompt.
 
-        This is what we pass to Ollama tomorrow as context.
+        This is what we pass to the LLM as context.
         """
         chunks = self.retrieve(query)
 
