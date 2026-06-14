@@ -1,10 +1,14 @@
-from langchain_ollama import ChatOllama
+import os
+from langchain_groq import ChatGroq
 from langchain_core.messages import HumanMessage, SystemMessage
 from core.retriever import Retriever
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class Translator:
     """
-    Connects Ollama LLM with the RAG retriever to:
+    Connects Groq LLM with the RAG retriever to:
     1. Answer questions about a research paper
     2. Translate sections of the paper into any language
     
@@ -22,31 +26,48 @@ class Translator:
     def __init__(
         self,
         retriever: Retriever,
-        model_name: str = "qwen2.5:7b",
-        base_url: str = "http://localhost:11434",
+        model_name: str = "llama-3.3-70b-versatile",
+        api_key: str = None,
         temperature: float = 0.3
     ):
         """
         retriever: your Retriever instance (from Day 5)
-        model_name: which Ollama model to use
-        base_url: where Ollama is running
+        model_name: which Groq-hosted model to use
+                     (e.g. "llama-3.3-70b-versatile", "llama-3.1-8b-instant")
+        api_key: Groq API key. If not provided, read from GROQ_API_KEY env var.
         temperature: 0.0 = focused/deterministic, 1.0 = creative
                      0.3 is good for translation (accurate but natural)
         """
         self.retriever = retriever
 
-        print(f"Connecting to Ollama model: {model_name}")
-        self.llm = ChatOllama(
+        api_key = api_key or os.getenv("GROQ_API_KEY")
+
+        # Fallback for Streamlit Community Cloud secrets (st.secrets)
+        if not api_key:
+            try:
+                import streamlit as st
+                api_key = st.secrets.get("GROQ_API_KEY")
+            except Exception:
+                pass
+
+        if not api_key:
+            raise ValueError(
+                "GROQ_API_KEY not found. Set it in your .env file, environment "
+                "variables, or Streamlit secrets."
+            )
+
+        print(f"Connecting to Groq model: {model_name}")
+        self.llm = ChatGroq(
             model=model_name,
-            base_url=base_url,
+            api_key=api_key,
             temperature=temperature
         )
-        print("Ollama connected!")
+        print("Groq connected!")
 
     def answer_question(self, question: str) -> dict:
         """
         Takes a question, retrieves relevant chunks,
-        sends them to Ollama as context, returns the answer.
+        sends them to Groq as context, returns the answer.
 
         Returns dict with:
         - answer: the LLM's response
@@ -90,8 +111,8 @@ Rules:
 Based on the context above, please answer this question:
 {question}""")
 
-        # Step 5: Send to Ollama and get response
-        print(f"Sending to Ollama... (this may take 10-30 seconds)")
+        # Step 5: Send to Groq and get response
+        print(f"Sending to Groq... (this may take 10-30 seconds)")
         response = self.llm.invoke([system_message, human_message])
 
         return {
