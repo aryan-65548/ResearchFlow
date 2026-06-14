@@ -154,7 +154,7 @@ def render_translate_page(settings: dict):
 
             except Exception as e:
                 st.error(f"Translation failed: {str(e)}")
-                st.info("Make sure Ollama is running: `ollama serve`")
+                st.info("Check your GROQ_API_KEY in the .env file and your internet connection.")
 
     # Simplify result
     if simplify_btn and input_text.strip():
@@ -194,7 +194,7 @@ def render_translate_page(settings: dict):
 
             except Exception as e:
                 st.error(f"Simplification failed: {str(e)}")
-                st.info("Make sure Ollama is running: `ollama serve`")
+                st.info("Check your GROQ_API_KEY in the .env file and your internet connection.")
 
     # Quick test snippets
     st.divider()
