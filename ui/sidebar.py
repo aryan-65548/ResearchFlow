@@ -8,8 +8,14 @@ def render_sidebar():
         # Model selection
         st.subheader(" Model")
         model = st.selectbox(
-            "Ollama Model",
-            options=["qwen2.5:7b", "llama3.1:8b", "mistral:7b", "gemma2:9b"],
+            "Groq Model",
+            options=[
+                "llama-3.3-70b-versatile",
+                "llama-3.1-8b-instant",
+                "openai/gpt-oss-120b",
+                "openai/gpt-oss-20b",
+                "gemma2-9b-it"
+            ],
             index=0
         )
 
@@ -73,7 +79,7 @@ def render_sidebar():
 
         st.divider()
         st.caption("Research Paper Translator v1.0")
-        st.caption("Powered by Ollama + ChromaDB")
+        st.caption("Powered by Groq + ChromaDB")
 
     return {
         "model": model,
