@@ -1,8 +1,8 @@
 # ResearchFlow
 
-**Translate, understand, and discover research papers — locally.**
+**Translate, understand, and discover research papers — powered by Groq.**
 
-ResearchFlow is a fully local, privacy-first research assistant built with RAG (Retrieval Augmented Generation). Upload any research paper, ask questions about it, translate sections into 15 languages, and discover related papers from arXiv — all running on your machine with no API costs.
+ResearchFlow is a research assistant built with RAG (Retrieval Augmented Generation). Upload any research paper, ask questions about it, translate sections into 15 languages, and discover related papers from arXiv — using Groq's fast cloud LLM inference.
 
 ---
 
@@ -14,7 +14,7 @@ ResearchFlow is a fully local, privacy-first research assistant built with RAG (
 - **Simplify** — convert complex academic text into plain English
 - **arXiv Search** — search and import papers directly from arXiv
 - **Paper Recommender** — get AI-powered recommendations based on your uploaded papers
-- **100% Local** — no API keys, no data leaves your machine
+- **Fast cloud inference** — powered by Groq's LPU-based API, no local GPU needed
 
 ---
 
@@ -24,7 +24,7 @@ ResearchFlow is a fully local, privacy-first research assistant built with RAG (
 |---|---|
 | Frontend | Streamlit |
 | RAG Orchestration | LangChain |
-| LLM | Ollama (qwen2.5:7b / llama3.2:3b) |
+| LLM | Groq API (llama-3.3-70b-versatile / llama-3.1-8b-instant) |
 | Embeddings | sentence-transformers (all-MiniLM-L6-v2) |
 | Vector Store | ChromaDB |
 | PDF Parsing | PyMuPDF |
@@ -37,14 +37,14 @@ ResearchFlow is a fully local, privacy-first research assistant built with RAG (
 ### Prerequisites
 
 - Python 3.11+
-- [Ollama](https://ollama.com) installed
+- A free [Groq API key](https://console.groq.com/keys)
 
 ### Installation
 
 ```bash
 # Clone the repo
-git clone https://github.com/yourusername/researchflow.git
-cd researchflow
+git clone https://github.com/aryan-65548/ResearchFlow.git
+cd ResearchFlow
 
 # Create virtual environment
 python -m venv venv
@@ -53,21 +53,31 @@ source venv/bin/activate  # Windows: venv\Scripts\activate
 # Install dependencies
 pip install -r requirements.txt
 
-# Pull Ollama model
-ollama pull llama3.2:3b
+# Add your Groq API key
+cp .env.example .env   # then edit .env and paste your key
 ```
 
 ### Run
 
 ```bash
-# Terminal 1 — start Ollama
-ollama serve
-
-# Terminal 2 — start Lexara
 python -m streamlit run app.py
 ```
 
 Open `http://localhost:8501` in your browser.
+
+---
+
+## Deployment (Streamlit Community Cloud)
+
+1. Push this repo to GitHub (make sure `.env` is **not** committed — it's in `.gitignore`).
+2. Go to [share.streamlit.io](https://share.streamlit.io) and create a new app, pointing it at `app.py`.
+3. In the app's **Settings → Secrets**, add:
+   ```toml
+   GROQ_API_KEY = "your_groq_api_key_here"
+   ```
+4. Deploy. Since the LLM now runs via the Groq API, no GPU or local model server is needed — the free Streamlit Cloud tier is enough.
+
+The same `GROQ_API_KEY` env var works for any other host (Render, Railway, Hugging Face Spaces, Docker, etc.) — just set it as an environment variable / secret on that platform.
 
 ---
 
